@@ -1,10 +1,11 @@
-# Multi-Platform Music Discord Rich Presence
+# rpcAppleMusic
 
-A modular, high-performance Discord Rich Presence (RPC) implementation built with the Bun runtime. This application synchronizes the playback status of music players across macOS, Windows, and Linux systems with Discord.
+A modular, high-performance Discord Rich Presence (RPC) implementation specifically designed for Apple Music, built with the Bun runtime. This application synchronizes the playback status of Apple Music across macOS, Windows, and Linux systems with Discord.
 
 ## Overview
 
-This project provides a robust solution for displaying real-time music metadata on a Discord profile. Unlike standard implementations, it is designed for the Bun runtime and utilizes platform-specific APIs to ensure efficient resource usage and accurate track detection.
+This project provides a specialized solution for displaying Apple Music metadata on a Discord profile. Unlike general-purpose media RPCs, it is optimized to detect Apple Music playback from both native applications and web-based Chromium instances. It utilizing platform-specific APIs to ensure efficient resource usage and accurate track detection.
+
 
 ## Features
 
