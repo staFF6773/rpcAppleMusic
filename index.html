@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rpcAppleMusic | Discord Rich Presence for Apple Music</title>
+    <meta name="description"
+        content="A modular, high-performance Discord Rich Presence implementation for Apple Music on macOS, Windows, and Linux.">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <div class="logo">rpcAppleMusic</div>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#installation">Installation</a>
+            <a href="https://github.com/staFF6773/rpcAppleMusic" target="_blank">GitHub</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Elevate your Discord Presence.</h1>
+            <p>Showcase your Apple Music playback with stunning metadata, high-res artwork, and real-time
+                synchronization across all platforms.</p>
+            <div class="cta-group">
+                <a href="https://github.com/staFF6773/rpcAppleMusic" class="btn btn-primary">Get Started</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+            <div class="hero-mockup">
+                <img src="hero.png" alt="Discord RPC Mockup">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="feature-card">
+                <h3>Cross-Platform</h3>
+                <p>Native support for macOS, Windows, and Linux. Optimized for efficiency and accurate track detection.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>Web Integration</h3>
+                <p>Specialized detection for web-based Apple Music players on Chromium, ensuring you're always in sync.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>Dynamic Artwork</h3>
+                <p>Automatic retrieval of high-resolution cover art via iTunes API with reliable fallback mechanisms.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>Built with Bun</h3>
+                <p>Leveraging the Bun runtime for minimal overhead, ultra-fast startup, and responsive RPC updates.</p>
+            </div>
+        </section>
+
+        <section id="installation" style="margin-top: 8rem;">
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 2rem;">Quick Setup</h2>
+            <div class="code-block">
+                <pre><code># Install dependencies
+bun install
+
+# Start the application
+bun start</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 rpcAppleMusic. Licensed under GPL-3.0.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">Created with passion for Apple Music users on Discord.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
