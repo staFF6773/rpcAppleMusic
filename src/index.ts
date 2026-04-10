@@ -34,7 +34,7 @@ async function main() {
 
       if (!currentTrack) {
         if (lastTrack !== null) {
-          console.log("[Main] No music detected. Clearing RPC.");
+          console.log(`[Main] No music detected (currentTrack is ${currentTrack}). Clearing RPC.`);
           await rpc.updatePresence(null);
           lastTrack = null;
         }

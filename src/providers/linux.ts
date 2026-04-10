@@ -12,6 +12,7 @@ export class LinuxProvider implements MusicProvider {
       const status = output.trim();
 
       if (!status || status.includes("No players found")) {
+        console.log(`[LinuxProvider] No players found or empty output. Output: "${status}"`);
         return null;
       }
 
