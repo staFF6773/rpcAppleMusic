@@ -34,7 +34,7 @@ export class MacOSProvider implements MusicProvider {
 
       const [title, artist, album, state, position, duration] = parts;
 
-      const artUrl = await fetchArtwork(title || "", artist || "");
+      const artUrl = await fetchArtwork(title || "", artist || "", album || "");
 
       return {
         title: title ?? "Unknown Title",

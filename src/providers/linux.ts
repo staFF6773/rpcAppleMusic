@@ -51,7 +51,7 @@ export class LinuxProvider implements MusicProvider {
 
       // If artUrl is a local file (common on Linux), Discord won't be able to show it.
       if (!artUrl || artUrl.startsWith("file://")) {
-        artUrl = await fetchArtwork(title || "", artist || "") || artUrl;
+        artUrl = await fetchArtwork(title || "", artist || "", album || "") || artUrl;
       }
 
       return {
