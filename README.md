@@ -49,6 +49,17 @@ For development with hot-reloading:
 bun dev
 ```
 
+## Examples
+
+### macOS with Apple Music App
+When the Apple Music application is active, the RPC will automatically pull high-resolution artwork from the iTunes database and display the current playback position along with a progress bar.
+
+### Linux with Chromium Shortcut
+If Apple Music is running as a PWA or a Chromium shortcut, the application parses the window title and MPRIS metadata to extract the song title and artist, ensuring the search for artwork remains accurate even when native metadata is sparse.
+
+### Windows with System Media Control
+The application integrates with the Windows Global System Media Transport Controls, allowing it to display metadata from any modern media application, including Spotify or the Apple Music Windows Preview app.
+
 ## Architecture
 
 The project follows a modular provider-based architecture:
@@ -60,4 +71,5 @@ The project follows a modular provider-based architecture:
 
 ## License
 
-This project is released under the MIT License.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0). See the LICENSE file for details.
+
