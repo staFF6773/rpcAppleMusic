@@ -51,18 +51,18 @@ export class RPCManager {
 
     const startTimestamp = Math.floor(Date.now() / 1000 - track.position);
     const endTimestamp = track.duration ? (startTimestamp + Math.floor(track.duration)) : undefined;
-    
+
     try {
       await this.client.user?.setActivity({
         details: track.title,
-        state: `by ${track.artist}${track.isPlaying ? "" : " (En pausa)"}`,
+        state: `by ${track.artist}${track.isPlaying ? "" : " (Paused)"}`,
         largeImageKey: track.artUrl || "music_large",
         largeImageText: track.album || "Apple Music",
         smallImageKey: track.isPlaying ? "play_icon" : "pause_icon",
-        smallImageText: track.isPlaying ? "Reproduciendo" : "Pausado",
+        smallImageText: track.isPlaying ? "Listening" : "Paused",
         instance: false,
         buttons: [
-          { label: "Escuchar en Apple Music", url: "https://music.apple.com" }
+          { label: "Listen on Apple Music", url: "https://music.apple.com" }
         ],
         startTimestamp: track.isPlaying ? startTimestamp : undefined,
         endTimestamp: track.isPlaying ? endTimestamp : undefined
