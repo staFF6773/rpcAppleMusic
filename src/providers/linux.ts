@@ -6,7 +6,7 @@ export class LinuxProvider implements MusicProvider {
     try {
       // Get all players that are playing or paused
       // mpris:artUrl is the property for artwork, mpris:length is duration in micros
-      const format = "{{title}}|@|{{artist}}|@|{{album}}|@|{{status}}|@|{{position}}|@|{{mpris:artUrl}}|@|{{mpris:length}}";
+      const format = "{{title}}|@|{{artist}}|@|{{album}}|@|{{status}}|@|{{position}}|@|{{mpris:artUrl}}|@|{{mpris:length}}|@|{{playerName}}";
       const proc = Bun.spawn(["playerctl", "-a", "metadata", "--format", format]);
       const output = await new Response(proc.stdout).text();
       const status = output.trim();
@@ -17,9 +17,9 @@ export class LinuxProvider implements MusicProvider {
       }
 
       const playerLines = status.split("\n").filter(l => l.trim().length > 0);
-      
+
       let selectedLine: string | undefined = playerLines[0];
-      
+
       for (const line of playerLines) {
         if (line.toLowerCase().includes("apple music")) {
           selectedLine = line;
@@ -32,12 +32,13 @@ export class LinuxProvider implements MusicProvider {
       const parts = selectedLine.split("|@|");
       if (parts.length < 5) return null;
 
-      let [title, artist, album, state, positionMicros, artUrl, durationMicros] = parts;
+      let [title, artist, album, state, positionMicros, artUrl, durationMicros, playerName] = parts;
 
       title = (title || "").trim();
       artist = (artist || "").trim();
       album = (album || "").trim();
       artUrl = (artUrl || "").trim();
+      playerName = (playerName || "").trim();
 
       // Clean up common web player title formats
       if (title.toLowerCase().includes("apple music")) {
@@ -58,11 +59,12 @@ export class LinuxProvider implements MusicProvider {
       return {
         title: title || "Unknown Title",
         artist: artist || "Unknown Artist",
-        album: album || "Apple Music",
+        album: album || "Unknown Album",
         isPlaying: state?.toLowerCase() === "playing",
         position: parseInt(positionMicros ?? "0") / 1000000,
         duration: durationMicros ? parseInt(durationMicros) / 1000000 : undefined,
-        artUrl: artUrl || undefined
+        artUrl: artUrl || undefined,
+        source: playerName || "Music"
       };
     } catch (error) {
       return null;

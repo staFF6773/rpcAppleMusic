@@ -44,7 +44,8 @@ if ($session) {
         isPlaying: (state ?? "").toLowerCase().includes("playing"),
         position: parseFloat((position ?? "0").replace(",", ".")),
         duration: duration ? parseFloat(duration.replace(",", ".")) : undefined,
-        artUrl
+        artUrl,
+        source: "Apple Music"
       };
     } catch (error) {
       console.error("Error getting track info on Windows:", error);

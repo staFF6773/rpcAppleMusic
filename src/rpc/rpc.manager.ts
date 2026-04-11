@@ -50,24 +50,47 @@ export class RPCManager {
     }
 
     const startTimestamp = Math.floor(Date.now() / 1000 - track.position);
-    const endTimestamp = track.duration ? (startTimestamp + Math.floor(track.duration)) : undefined;
+    const endTimestamp = track.duration
+      ? startTimestamp + Math.floor(track.duration)
+      : undefined;
+
+    const searchQuery = encodeURIComponent(`${track.title} ${track.artist}`);
+    const artistQuery = encodeURIComponent(track.artist);
+
+    const state = track.isPlaying
+      ? `${track.artist} — ${track.album}`
+      : `${track.artist} — ${track.album} (Paused)`;
+
+    const source = track.source || "Apple Music";
 
     try {
-      await this.client.user?.setActivity({
+      const activity = {
+        type: 2, // LISTENING (shows "Listening to...")
         details: track.title,
-        state: `by ${track.artist}${track.isPlaying ? "" : " (Paused)"}`,
+        state,
         largeImageKey: track.artUrl || "music_large",
-        largeImageText: track.album || "Apple Music",
+        largeImageText: track.album || source,
         smallImageKey: track.isPlaying ? "play_icon" : "pause_icon",
-        smallImageText: track.isPlaying ? "Listening" : "Paused",
+        smallImageText: track.isPlaying
+          ? `🎶 Listening on ${source}`
+          : `⏸ Paused on ${source}`,
         instance: false,
         buttons: [
-          { label: "Listen on Apple Music", url: "https://music.apple.com" }
+          {
+            label: "Search on Apple Music",
+            url: `https://music.apple.com/search?term=${searchQuery}`
+          },
+          {
+            label: "View Artist",
+            url: `https://music.apple.com/search?term=${artistQuery}`
+          }
         ],
-        startTimestamp: track.isPlaying ? startTimestamp : undefined,
+        startTimestamp,
         endTimestamp: track.isPlaying ? endTimestamp : undefined
-      });
-      console.log(`[RPC] Updated: ${track.title} - ${track.artist} (${track.isPlaying ? "Playing" : "Paused"})`);
+      };
+
+      await this.client.user?.setActivity(activity);
+      console.log(`[RPC] Activity Set (Listening): ${track.title} by ${track.artist}`);
     } catch (error) {
       console.error(`[RPC] Failed to update activity:`, (error as Error).message);
     }
@@ -75,6 +98,7 @@ export class RPCManager {
 
   async clear(): Promise<void> {
     if (this.isConnected) {
+      console.log(`[RPC] Clearing activity...`);
       await this.client.user?.clearActivity();
     }
   }

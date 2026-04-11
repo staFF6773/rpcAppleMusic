@@ -43,7 +43,8 @@ export class MacOSProvider implements MusicProvider {
         isPlaying: state?.toLowerCase() === "playing",
         position: parseFloat((position ?? "0").replace(",", ".")),
         duration: parseFloat((duration ?? "0").replace(",", ".")),
-        artUrl
+        artUrl,
+        source: "Apple Music"
       };
     } catch (error) {
       console.error("Error getting track info on macOS:", error);
