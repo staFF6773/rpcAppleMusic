@@ -28,10 +28,21 @@ export class RPCManager {
 
     try {
       console.log(`[RPC] Attempting to connect to Discord...`);
+      
+      // Add pre-login listeners for debugging
+      this.client.once("ready", () => {
+        console.log(`[RPC] Connection established successfully.`);
+        this.isConnected = true;
+      });
+
       await this.client.login();
     } catch (error) {
+      this.isConnected = false;
       console.error(`[RPC] Connection error:`, (error as Error).message);
-      if ((error as Error).message.includes("TIMEOUT") || (error as Error).message.includes("closed") || (error as Error).message.includes("Could not connect")) {
+      
+      const msg = (error as Error).message;
+      if (msg.includes("TIMEOUT") || msg.includes("closed") || msg.includes("Could not connect")) {
+        console.log("[RPC] Possible reasons: Discord is not running, or using a Sandbox (Flatpak) without RPC permissions.");
         console.log("[RPC] Retrying in 10 seconds...");
         setTimeout(() => this.connect(), 10000);
       }
@@ -72,19 +83,9 @@ export class RPCManager {
         largeImageText: track.album || source,
         smallImageKey: track.isPlaying ? "play_icon" : "pause_icon",
         smallImageText: track.isPlaying
-          ? `🎶 Listening on ${source}`
+          ? `🎶 listening on ${source}`
           : `⏸ Paused on ${source}`,
         instance: false,
-        buttons: [
-          {
-            label: "Search on Apple Music",
-            url: `https://music.apple.com/search?term=${searchQuery}`
-          },
-          {
-            label: "View Artist",
-            url: `https://music.apple.com/search?term=${artistQuery}`
-          }
-        ],
         startTimestamp,
         endTimestamp: track.isPlaying ? endTimestamp : undefined
       };
